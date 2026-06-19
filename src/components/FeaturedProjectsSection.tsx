@@ -1,56 +1,91 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export function FeaturedProjectsSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const projects = [
-    {
-      title: "Project Alpha",
-      description: "A modern SaaS dashboard built with Next.js and Tailwind.",
-    },
-    {
-      title: "Project Beta",
-      description: "An e-commerce storefront with seamless payment integration.",
-    },
-    {
-      title: "Project Gamma",
-      description: "A real-time collaborative documentation platform.",
-    },
+    { title: "Enterprise Resource Planner", desc: "A modern SaaS dashboard built with Next.js and Tailwind." },
+    { title: "Distributed Financial Ledger", desc: "Real-time sync capabilities using tRPC and WebSockets." },
+    { title: "Cloud Infrastructure Visualizer", desc: "Interactive node graphs mapped directly from AWS." },
+    { title: "Automated Deployment Pipeline", desc: "Seamless CI/CD integrated terminal UI." },
   ];
 
+  useGSAP(() => {
+    // Static Entry
+    gsap.from(".work-text", {
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power3.out"
+    });
+
+    // Horizontal Scroll Interception
+    const totalPanels = projects.length;
+    
+    gsap.to(containerRef.current, {
+      xPercent: -100 * ((totalPanels - 1) / totalPanels),
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        pin: true,
+        scrub: 1,
+        end: () => "+=" + (containerRef.current?.offsetWidth || 0),
+      }
+    });
+  }, { scope: sectionRef });
+
   return (
-    <section id="projects" className="w-full py-12 md:py-24 lg:py-32 flex items-center justify-center">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-2">
-            <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-              My Work
-            </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-              Featured Projects
-            </h2>
-            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Check out some of my recent work.
-            </p>
-          </div>
-        </div>
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
-          {projects.map((project, idx) => (
-            <Card key={idx} className="flex flex-col border border-border hover:border-primary transition-colors">
-              <div className="h-48 w-full bg-muted/60 rounded-t-lg flex items-center justify-center text-muted-foreground">
-                Image Placeholder
+    <section ref={sectionRef} className="h-screen w-full flex flex-col justify-center overflow-hidden bg-[#1E1E24]">
+      <div className="container px-4 md:px-8 mb-8 z-10 relative pointer-events-none">
+        <h2 className="work-text text-4xl md:text-6xl font-bold tracking-tighter text-[#F5F5F7] uppercase">
+          Structural <span className="text-[#0A84FF]">Mockups</span>
+        </h2>
+        <p className="work-text text-[#8E8E93] mt-2 max-w-lg">
+          Scroll down to explore enterprise dashboard architectures on a horizontal matrix.
+        </p>
+      </div>
+
+      {/* Horizontal Matrix Container */}
+      <div 
+        ref={containerRef} 
+        className="flex h-[60vh] w-[400vw] items-center px-4"
+        style={{ width: `${projects.length * 100}vw` }}
+      >
+        {projects.map((project, idx) => (
+          <div key={idx} className="w-screen px-4 md:px-12 flex-shrink-0">
+            <Card className="flex flex-col h-full max-w-5xl mx-auto border border-[#30363d] hover:border-[#0A84FF] transition-colors bg-[#161b22]">
+              <div className="h-96 w-full border-b border-[#30363d] flex flex-col bg-[#0d1117]">
+                <div className="flex items-center px-4 h-8 border-b border-[#30363d] bg-[#161b22]">
+                  <div className="flex space-x-2">
+                    <div className="w-3 h-3 rounded-full bg-slate-700" />
+                    <div className="w-3 h-3 rounded-full bg-slate-700" />
+                    <div className="w-3 h-3 rounded-full bg-slate-700" />
+                  </div>
+                </div>
+                <div className="flex-1 flex items-center justify-center text-[#8E8E93]">
+                  [ Dashboard Rendering Engine: {project.title} ]
+                </div>
               </div>
               <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
+                <CardTitle className="text-[#F5F5F7]">{project.title}</CardTitle>
+                <CardDescription className="text-[#8E8E93]">{project.desc}</CardDescription>
               </CardHeader>
               <CardContent className="mt-auto">
-                <Button variant="outline" className="w-full">
-                  View Details
+                <Button variant="outline" className="w-full border-[#30363d] text-[#F5F5F7] hover:text-[#0A84FF] hover:border-[#0A84FF]">
+                  Analyze Structure
                 </Button>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );

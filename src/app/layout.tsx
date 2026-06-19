@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import {Header} from "@/components/Header";
-import {Footer} from "@/components/Footer";
+import { Footer } from "@/components/Footer";
+import { GSAPProvider } from "@/components/GSAPProvider";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -24,11 +25,13 @@ export default function RootLayout({
       <body
         className={`${jetbrainsMono.variable} ${jetbrainsMono.className} antialiased min-h-screen flex flex-col`}
       >
-        <Header/>
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer/>
+        <GSAPProvider>
+          <Header/>
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer/>
+        </GSAPProvider>
       </body>
     </html>
   );

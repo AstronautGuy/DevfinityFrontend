@@ -1,5 +1,5 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Server, Code2, LayoutTemplate } from "lucide-react";
+import { TiltCard } from "@/components/TiltCard";
 
 export function CoreCapabilitiesSection() {
   const capabilities = [
@@ -38,17 +38,15 @@ export function CoreCapabilitiesSection() {
         </div>
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 mt-12">
           {capabilities.map((item, idx) => (
-            <Card key={idx} className="flex flex-col text-center border border-border bg-card hover:border-primary transition-colors">
-              <CardHeader className="flex items-center pb-2">
+            <TiltCard key={idx} className="flex flex-col text-center p-6 h-full">
+              <div className="flex flex-col items-center pb-2">
                 {item.icon}
-                <CardTitle className="text-lg">{item.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-sm text-muted-foreground mt-2">
-                  {item.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
+                <h3 className="text-lg font-semibold leading-none tracking-tight">{item.title}</h3>
+              </div>
+              <div className="mt-2 text-sm text-muted-foreground flex-1">
+                {item.description}
+              </div>
+            </TiltCard>
           ))}
         </div>
       </div>
