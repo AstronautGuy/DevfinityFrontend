@@ -38,7 +38,7 @@ export function CoreCapabilitiesSection() {
         </div>
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 mt-12">
           {capabilities.map((item, idx) => (
-            <Card key={idx} className="flex flex-col text-center border border-border/40 bg-card hover:bg-accent/10 transition-colors shadow-sm">
+            <Card key={idx} className="flex flex-col text-center border border-border bg-card hover:border-primary transition-colors">
               <CardHeader className="flex items-center pb-2">
                 {item.icon}
                 <CardTitle className="text-lg">{item.title}</CardTitle>

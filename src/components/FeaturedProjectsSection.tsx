@@ -35,7 +35,7 @@ export function FeaturedProjectsSection() {
         </div>
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
           {projects.map((project, idx) => (
-            <Card key={idx} className="flex flex-col">
+            <Card key={idx} className="flex flex-col border border-border hover:border-primary transition-colors">
               <div className="h-48 w-full bg-muted/60 rounded-t-lg flex items-center justify-center text-muted-foreground">
                 Image Placeholder
               </div>
