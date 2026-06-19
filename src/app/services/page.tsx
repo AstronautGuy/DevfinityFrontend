@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ComparisonSlider } from "@/components/ComparisonSlider";
 
@@ -40,7 +41,7 @@ export default function ServicesPage() {
           start: `top+=${i * 30}% center`,
           end: `top+=${(i + 1) * 30}% center`,
           scrub: true,
-          toggleClass: "border-[#30D158] text-[#30D158]",
+          toggleClass: "active",
         },
       });
     });
@@ -139,13 +140,13 @@ export default function ServicesPage() {
                   <div className="flex justify-between text-[#8E8E93] border-b border-[#2C2C35] pb-2">
                     <span>[ORDER_ID]</span><span>[SKU_REF]</span><span>[STATUS]</span>
                   </div>
-                  <div className="dash-row flex justify-between border border-[#2C2C35] p-2 transition-colors duration-300">
+                  <div className="dash-row flex justify-between border border-[#2C2C35] p-2 transition-colors duration-300 [&.active]:border-[#30D158] [&.active]:text-[#30D158]">
                     <span>#ORD-9921</span><span>SKU-A12</span><span>DISPATCHED</span>
                   </div>
-                  <div className="dash-row flex justify-between border border-[#2C2C35] p-2 transition-colors duration-300">
+                  <div className="dash-row flex justify-between border border-[#2C2C35] p-2 transition-colors duration-300 [&.active]:border-[#30D158] [&.active]:text-[#30D158]">
                     <span>#ORD-9922</span><span>SKU-B44</span><span>DAMAGED_LOG</span>
                   </div>
-                  <div className="dash-row flex justify-between border border-[#2C2C35] p-2 transition-colors duration-300">
+                  <div className="dash-row flex justify-between border border-[#2C2C35] p-2 transition-colors duration-300 [&.active]:border-[#30D158] [&.active]:text-[#30D158]">
                     <span>#ORD-9923</span><span>SKU-C19</span><span>OVERRIDE</span>
                   </div>
                </div>
