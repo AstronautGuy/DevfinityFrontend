@@ -74,7 +74,7 @@ export function ContactSection() {
               Get in Touch
             </h2>
             <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Have a project in mind or want to discuss a potential collaboration? I'd love to hear from you.
+              Have a project in mind or want to discuss a potential collaboration? I&apos;d love to hear from you.
             </p>
           </div>
         </div>
