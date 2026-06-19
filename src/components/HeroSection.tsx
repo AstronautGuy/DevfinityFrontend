@@ -8,18 +8,18 @@ export function HeroSection() {
         <div className="flex flex-col items-center space-y-4 text-center">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-              Building Digital Experiences
+              Engineering High-Performance Digital Ecosystems
             </h1>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-              I am a passionate software engineer focused on creating beautiful, functional, and user-centric web applications.
+              Devfinity is a forward-thinking software development entity dedicated to building bespoke software that scales. We bridge the gap between complex business operations and seamless user experiences.
             </p>
           </div>
-          <div className="space-x-4">
+          <div className="space-x-4 mt-4">
             <Button asChild size="lg">
-              <Link href="#projects">View My Work</Link>
+              <Link href="#capabilities">Our Capabilities</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link href="#contact">Contact Me</Link>
+              <Link href="#contact">Contact Us</Link>
             </Button>
           </div>
         </div>
