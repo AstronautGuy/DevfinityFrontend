@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import {Header} from "@/components/Header";
 import {Footer} from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Template Website",
-  description: "Made By TheAstronautGuy",
+  title: "Devfinity | Professional Engineering",
+  description: "Bespoke software solutions.",
 };
 
 export default function RootLayout({
@@ -25,9 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${jetbrainsMono.variable} ${jetbrainsMono.className} antialiased min-h-screen flex flex-col`}
       >
         <Header/>
         <main className="flex-1">
