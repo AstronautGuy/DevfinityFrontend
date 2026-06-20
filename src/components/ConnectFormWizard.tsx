@@ -7,8 +7,18 @@ import { Button } from "@/components/ui/button";
 
 export function ConnectFormWizard() {
   const [step, setStep] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { contextSafe } = useGSAP({ scope: containerRef });
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    // Simulate network API request
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    setIsSuccess(true);
+  };
 
   const steps = [
     { id: "identity", label: "01 / Identity" },
@@ -132,10 +142,11 @@ export function ConnectFormWizard() {
           </Button>
         ) : (
           <Button 
-            onClick={() => window.location.href = "mailto:info@devfinity.net"}
-            className="bg-[#2C2C35] text-[#F5F5F7] hover:bg-[#0A84FF] transition-colors"
+            onClick={handleSubmit}
+            disabled={isSubmitting || isSuccess}
+            className={`transition-colors ${isSuccess ? "bg-[#30D158] text-[#121214] border-[#30D158]" : "bg-[#2C2C35] text-[#F5F5F7] hover:bg-[#0A84FF]"}`}
           >
-            [ EXECUTE CONNECTION PIPELINE ]
+            {isSubmitting ? "[ ESTABLISHING CONNECTION... ]" : isSuccess ? "[ CONNECTION ESTABLISHED ]" : "[ EXECUTE CONNECTION PIPELINE ]"}
           </Button>
         )}
       </div>
