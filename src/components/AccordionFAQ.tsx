@@ -10,8 +10,8 @@ export function AccordionFAQ() {
       a: "A standard custom enterprise infrastructure typically spans 8 to 12 weeks. This includes detailed operational mapping, relational schema building, integration of specialized registers (such as a custom Replacement Register), and live traffic stress testing."
     },
     {
-      q: "Can Devfinity migrate legacy company data into the new type-safe ecosystem safely?",
-      a: "Yes. We engineer automated script pipelines to extract, validate, and structure your legacy data into our type-safe relational schemas, eliminating data corruption or downtime during the system changeover."
+      q: "Can Devfinity handle legacy database migration into a new full-stack system?",
+      a: "Yes. Devfinity designs dedicated data translation pipelines that extract, clean, and map legacy files directly into optimized, type-safe relational schemas. This migration workflow maintains absolute data integrity and ensures zero system downtime during the cutover phase."
     },
     {
       q: "Who owns the final production codebase and deployment infrastructure?",
@@ -19,8 +19,25 @@ export function AccordionFAQ() {
     }
   ];
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto space-y-4 font-mono">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {faqs.map((faq, idx) => (
         <AccordionItem key={idx} question={faq.q} answer={faq.a} />
       ))}
@@ -37,18 +54,18 @@ function AccordionItem({ question, answer }: { question: string, answer: string 
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-6 flex justify-between items-center hover:bg-[#1A1A1E] transition-colors focus:outline-none"
       >
-        <span className="text-left text-[#F5F5F7] font-bold text-sm md:text-base leading-relaxed pr-8">
-          [Q] {question}
-        </span>
+        <h3 className="text-left text-[#F5F5F7] font-bold text-sm md:text-base leading-relaxed pr-8 m-0">
+          Q: {question}
+        </h3>
         <div className={`p-2 rounded border transition-colors ${isOpen ? "border-[#0A84FF] text-[#0A84FF]" : "border-[#2C2C35] text-[#8E8E93]"}`}>
           {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
         </div>
       </button>
       <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
         <div className="overflow-hidden">
-          <div className="p-6 pt-0 text-[#8E8E93] text-sm md:text-base leading-relaxed border-t border-[#2C2C35]">
-            [A] {answer}
-          </div>
+          <p className="p-6 pt-0 text-[#8E8E93] text-sm md:text-base leading-relaxed border-t border-[#2C2C35] m-0">
+            A: {answer}
+          </p>
         </div>
       </div>
     </div>

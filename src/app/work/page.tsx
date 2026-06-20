@@ -1,9 +1,11 @@
-import { FeaturedProjectsSection } from "@/components/FeaturedProjectsSection";
+import type { Metadata } from "next";
+import WorkClient from "@/components/WorkClient";
+
+export const metadata: Metadata = {
+  title: "Enterprise Production Deployments & Architectural Case Studies | Devfinity",
+  description: "Real-world engineering case studies proving system stability across custom industrial ERP architectures, complex relational schemas, and lightweight UI platforms.",
+};
 
 export default function WorkPage() {
-  return (
-    <div className="flex flex-col min-h-screen pt-16">
-      <FeaturedProjectsSection />
-    </div>
-  );
+  return <WorkClient />;
 }
