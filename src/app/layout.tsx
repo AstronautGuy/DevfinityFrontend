@@ -22,6 +22,53 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "ProfessionalService",
+                  "@id": "https://devfinity.dev/#agency",
+                  "name": "Devfinity",
+                  "url": "https://devfinity.dev",
+                  "image": "https://devfinity.dev/assets/og-brand-anchor.jpg",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Vadodara",
+                    "addressRegion": "Gujarat",
+                    "addressCountry": "IN"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": "22.3072",
+                    "longitude": "73.1812"
+                  },
+                  "priceRange": "$$$$",
+                  "description": "Bespoke full-stack software development agency engineering type-safe Next.js applications, custom role-based ERP systems, and low-latency database infrastructures.",
+                  "knowsAbout": [
+                    "https://en.wikipedia.org/wiki/Web_development",
+                    "https://en.wikipedia.org/wiki/Enterprise_resource_planning",
+                    "https://en.wikipedia.org/wiki/TypeScript",
+                    "https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping",
+                    "https://en.wikipedia.org/wiki/User_interface_design"
+                  ]
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://devfinity.dev/#webpage",
+                  "url": "https://devfinity.dev",
+                  "name": "Devfinity | Custom Web Development & Enterprise Infrastructure",
+                  "isPartOf": { "@id": "https://devfinity.dev/#website" },
+                  "about": { "@id": "https://devfinity.dev/#agency" }
+                }
+              ]
+            })
+          }}
+        />
+      </head>
       <body
         className={`${jetbrainsMono.variable} ${jetbrainsMono.className} antialiased min-h-screen flex flex-col`}
       >
