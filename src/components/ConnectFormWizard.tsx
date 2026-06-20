@@ -20,7 +20,7 @@ export function ConnectFormWizard() {
   const handleNext = contextSafe(() => {
     if (step < steps.length - 1) {
       gsap.to(".wizard-track", {
-        xPercent: -100 * (step + 1),
+        xPercent: -25 * (step + 1),
         duration: 0.6,
         ease: "power3.inOut"
       });
@@ -31,7 +31,7 @@ export function ConnectFormWizard() {
   const handlePrev = contextSafe(() => {
     if (step > 0) {
       gsap.to(".wizard-track", {
-        xPercent: -100 * (step - 1),
+        xPercent: -25 * (step - 1),
         duration: 0.6,
         ease: "power3.inOut"
       });
@@ -132,6 +132,7 @@ export function ConnectFormWizard() {
           </Button>
         ) : (
           <Button 
+            onClick={() => window.location.href = "mailto:info@devfinity.net"}
             className="bg-[#2C2C35] text-[#F5F5F7] hover:bg-[#0A84FF] transition-colors"
           >
             [ EXECUTE CONNECTION PIPELINE ]

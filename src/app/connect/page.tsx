@@ -132,7 +132,8 @@ export default function ConnectPage() {
                 DIRECT ROUTING
               </h2>
               <div className="space-y-6">
-                <ClipboardContact label="[SYSTEM_MAILBOX]" value="hello@devfinity.dev" />
+                <ClipboardContact label="[SYSTEM_MAILBOX]" value="info@devfinity.net" />
+                <ClipboardContact label="[SYSTEM_PHONE]" value="8780706192" />
                 <ClipboardContact label="[OPERATIONAL_HOURS]" value="09:00 - 18:00 IST" />
               </div>
             </div>
