@@ -11,8 +11,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Devfinity | Professional Engineering",
-  description: "Bespoke software solutions.",
+  title: "Devfinity",
+  description: "Bespoke full-stack web application engineering for complex corporate infrastructures. We replace rigid templates with low-latency, role-based database environments.",
   icons: {
     icon: [
       { url: '/favicons/favicon.ico' },
