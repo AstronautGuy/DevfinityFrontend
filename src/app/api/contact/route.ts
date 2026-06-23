@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -9,6 +9,8 @@ const contactSchema = z.object({
   capacity: z.string().optional(),
   briefing: z.string().min(10),
 });
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
@@ -25,26 +27,14 @@ export async function POST(req: Request) {
 
     const { name, email, scopes, capacity, briefing } = validatedData.data;
 
-    // We will attempt to send via nodemailer if configured, otherwise just log
-    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.warn("[MAIL_MOCK] Missing SMTP variables. Payload:", validatedData.data);
-      // Faking success for local dev if missing vars
-      return NextResponse.json({ message: "Successfully received message!" }, { status: 200 });
+    if (!process.env.RESEND_API_KEY) {
+      console.warn("[MAIL_MOCK] Missing RESEND_API_KEY. Payload:", validatedData.data);
+      return NextResponse.json({ message: "Successfully received message! (Simulated)" }, { status: 200 });
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_PORT === "465",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    const mailOptions = {
-      from: process.env.SMTP_FROM || "system@devfinity.net",
-      to: "info@devfinity.net",
+    const { data, error } = await resend.emails.send({
+      from: process.env.RESEND_FROM || "onboarding@resend.dev",
+      to: ["info@devfinity.net"],
       subject: `[SYSTEM_INTAKE] New Pipeline from ${name}`,
       text: `
 SYSTEM INTAKE PIPELINE:
@@ -57,10 +47,12 @@ SCOPES: ${(scopes || []).join(", ")}
 CORE BRIEFING:
 ${briefing}
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
-    console.log("Successfully sent email to info@devfinity.net via SMTP.");
+    if (error) {
+      console.error("Resend API Error:", error);
+      return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+    }
 
     return NextResponse.json(
       { message: "Successfully executed connection pipeline!" },
