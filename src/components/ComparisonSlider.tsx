@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, MouseEvent, TouchEvent } from "react";
-import { AlertCircle, LineChart, Server } from "lucide-react";
+import { AlertCircle, Server } from "lucide-react";
 
 export function ComparisonSlider() {
   const [sliderPosition, setSliderPosition] = useState(50);

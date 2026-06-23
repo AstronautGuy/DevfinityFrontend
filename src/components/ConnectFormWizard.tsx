@@ -105,7 +105,7 @@ export function ConnectFormWizard() {
                  <option value="tier2">Growth Architecture ($25k - $50k)</option>
                  <option value="tier3">Enterprise Infrastructure ($50k+)</option>
                </select>
-               <p className="text-xs text-[#8E8E93] mt-2">// Capacity tiers determine the underlying infrastructure scalability required.</p>
+               <p className="text-xs text-[#8E8E93] mt-2">{"//"} Capacity tiers determine the underlying infrastructure scalability required.</p>
              </div>
           </div>
 

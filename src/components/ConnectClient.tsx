@@ -31,7 +31,7 @@ function CoordinateCanvas() {
       {/* Coordinate Readout */}
       <div className="absolute bottom-8 right-8 border border-[#2C2C35] bg-[#121214] text-[#8E8E93] text-xs font-mono p-2 flex items-center shadow-lg">
         <span className="text-[#0A84FF] mr-2">{"//"}</span>
-        X_{coords.x.toString().padStart(4, '0')} // Y_{coords.y.toString().padStart(4, '0')}
+        X_{coords.x.toString().padStart(4, '0')} {"//"} Y_{coords.y.toString().padStart(4, '0')}
       </div>
     </div>
   );
