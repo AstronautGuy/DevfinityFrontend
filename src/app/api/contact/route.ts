@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { Resend } from "resend";
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -9,8 +8,6 @@ const contactSchema = z.object({
   capacity: z.string().optional(),
   briefing: z.string().min(10),
 });
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
@@ -27,30 +24,35 @@ export async function POST(req: Request) {
 
     const { name, email, scopes, capacity, briefing } = validatedData.data;
 
-    if (!process.env.RESEND_API_KEY) {
-      console.warn("[MAIL_MOCK] Missing RESEND_API_KEY. Payload:", validatedData.data);
+    // The access key for Web3Forms is required to route to info@devfinity.net
+    const accessKey = process.env.WEB3FORMS_KEY;
+
+    if (!accessKey) {
+      console.warn("[MAIL_MOCK] Missing WEB3FORMS_KEY. Payload:", validatedData.data);
       return NextResponse.json({ message: "Successfully received message! (Simulated)" }, { status: 200 });
     }
 
-    const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM || "onboarding@resend.dev",
-      to: ["info@devfinity.net"],
-      subject: `[SYSTEM_INTAKE] New Pipeline from ${name}`,
-      text: `
-SYSTEM INTAKE PIPELINE:
------------------------
-CLIENT: ${name}
-EMAIL: ${email}
-CAPACITY: ${capacity || "N/A"}
-SCOPES: ${(scopes || []).join(", ")}
-
-CORE BRIEFING:
-${briefing}
-      `,
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: accessKey,
+        name: name,
+        email: email,
+        capacity: capacity || "N/A",
+        scopes: (scopes || []).join(", "),
+        message: briefing,
+        subject: `[SYSTEM_INTAKE] New Pipeline from ${name}`,
+      }),
     });
 
-    if (error) {
-      console.error("Resend API Error:", error);
+    const result = await res.json();
+    
+    if (!res.ok || !result.success) {
+      console.error("Web3Forms API Error:", result);
       return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
     }
 
